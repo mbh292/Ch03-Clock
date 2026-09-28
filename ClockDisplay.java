@@ -5,7 +5,8 @@
  * The ClockDisplay class implements a digital clock display for a
  * American-style 12 hour clock. The clock shows hours and minutes. Hours always run
  * from 00-11, where 00 needs to be displayed as 12. It is the job of the ClockDisplay
- * to make sure that the change over from 11 -> 00 internally triggers a change from AM to PM or from PM to AM as appropriate.
+ * to make sure that the change over from 11 -> 00 internally triggers a change from
+ * AM to PM or from PM to AM as appropriate.
  * 
  * The clock display receives "ticks" (via the timeTick method) every minute
  * and reacts by incrementing the display. This is done in the usual clock

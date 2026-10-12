@@ -19,6 +19,7 @@ public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
+    private String amorpm;
     private String displayString;    // simulates the actual display
     
     /**
@@ -29,6 +30,7 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        amorpm = "AM";
         updateDisplay();
     }
 
@@ -41,6 +43,7 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        amorpm = "AM";
         setTime(hour, minute);
     }
 
@@ -53,6 +56,14 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+            if(hours.getValue() == 0) {
+                if(amorpm.equals("AM")) {
+                    amorpm = "PM";
+                }
+                else {
+                    amorpm = "AM";
+                }
+            }
         }
         updateDisplay();
     }
@@ -63,7 +74,14 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
-        hours.setValue(hour);
+        if(hour >= 12) {
+            amorpm = "PM";
+            hours.setValue(hour - 12);
+        }
+        else {
+            amorpm = "AM";
+            hours.setValue(hour);
+        }
         minutes.setValue(minute);
         updateDisplay();
     }
@@ -81,7 +99,11 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int displayHour = hours.getValue();
+        if(displayHour == 0) {
+            displayHour = 12;
+        }
+        displayString = displayHour + ":" + 
+                        minutes.getDisplayValue() + " " + amorpm;
     }
 }
